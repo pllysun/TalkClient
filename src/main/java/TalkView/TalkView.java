@@ -2,7 +2,8 @@ package TalkView;
 
 import TalkBasic.User;
 import TalkClientToSever.MessageToService;
-import TalkClientToSever.RegisterUser;
+import TalkClientToSever.RegisterCheck;
+import TalkClientToSever.RegisterUers;
 import TalkClientToSever.UserClient;
 import TalkView.Utility.Utility;
 
@@ -39,7 +40,6 @@ public class TalkView {
             System.out.print("请输入您的选择：");
             key = Utility.readString(1);
             //根据用户的输入，来处理不同的逻辑
-
             switch (key) {
                 case "1":
                     System.out.print("请输入用户ID:");
@@ -77,22 +77,22 @@ public class TalkView {
                     }
                     break;
                 case "2":
-                    RegisterUser registerUser = new RegisterUser();
+                    RegisterCheck registerCheck = new RegisterCheck();
                     while(true) {
                         System.out.print("请输入用户ID:");
                         user.setReuser(Utility.readString(16));
-                        boolean check = registerUser.CheckRegister(user.getUserId());
+                        boolean check = registerCheck.CheckRegister(user.getReuser());
                         if(check)
                         {
+                            RegisterUers registerUers = new RegisterUers();
                             System.out.print("请输入密码:");
-                            user.setPassword(Utility.readString(16));
-                            registerUser.register(user.getReuser(),user.getRepwd());
+                            user.setRepwd(Utility.readString(16));
+                            boolean registerSuccess = registerUers.register(user.getReuser(), user.getRepwd());
                             break;
                         }
                         else System.out.println("用户名已存在，请重新输入！！！");
                     }
-
-
+                    break;
                 case "9":
                     loop = false;
                     System.out.println("退出系统");
