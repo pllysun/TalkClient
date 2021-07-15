@@ -46,6 +46,11 @@ public class ClientConnectServerThread extends Thread {
                     talkView.UserMenu();
                     System.out.println("\n"+"用户:"+message.getSender()+"对你发送消息："+message.getContent()+"\n"+"发送消息时间为："+message.getSendTime());
                 }
+                else if(message.getMesType().equals(MessageType.MESSAGE_TO_ALL_MES))
+                {
+                    System.out.println("\n"+"用户："+message.getSender()+"对大家说："+message.getContent());
+
+                }
                 else
                 {
                     System.out.println("其他类型消息，暂时不处理");

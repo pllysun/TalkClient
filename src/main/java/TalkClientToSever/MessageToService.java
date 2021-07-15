@@ -28,5 +28,24 @@ public class MessageToService {
         }
 
     }
+    public void sendMessageToAll(String content,String senderId)
+    {
+        //构建message
+        Message message = new Message();
+        message.setMesType(MessageType.MESSAGE_TO_ALL_MES);//普通消息
+        message.setSender(senderId);//发送者id
+        message.setContent(content);//消息内容
+        message.setSendTime(new java.util.Date().toString());//发送时间
+        System.out.println("你给所有在线的用户发送 "+content+" 发送成功，其他在线人员已收到！");
+        //发送给服务端
+
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(ManageClientConnectServerThread.getClientConnectServerThread(senderId).getSocket().getOutputStream());
+            oos.writeObject(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }

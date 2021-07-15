@@ -55,13 +55,19 @@ public class TalkView {
                                     userClient.onlineFriendList();
                                     break;
                                 case "2":
+                                    MessageToService toall = new MessageToService();
+
+                                    System.out.println("请输入想对在线用户的话：");
+                                    String string = Utility.readString(100);
+                                    //调用一个方法，将消息封装成message对象，发送给服务端
+                                    toall.sendMessageToAll(string,user.getUserId());
                                     break;
                                 case "3":
                                     System.out.println("请输入想要私聊的用户ID(在线)： ");
                                     String getter = Utility.readString(50);
                                     System.out.println("请输入向发送的消息:");
                                     String content = Utility.readString(100);
-                                    messageToService.sendMessageToUser(content, user.getUserId(), getter);
+                                    this.messageToService.sendMessageToUser(content, user.getUserId(), getter);
                                     break;
                                 case "4":
                                     break;
