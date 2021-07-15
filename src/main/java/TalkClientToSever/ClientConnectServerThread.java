@@ -20,9 +20,9 @@ public class ClientConnectServerThread extends Thread {
 
     @Override
     public void run() {
+        System.out.println("客户端线程，等待读取从服务器端发送的消息");
         //因为Thread需要在后台和服务器通信，因此我们需要用While循环
         while (true) {
-            System.out.println("客户端线程，等待读取从服务器端发送的消息");
             try {
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 //如果服务器没有发送Message对象，线程会阻塞在这里
@@ -49,6 +49,7 @@ public class ClientConnectServerThread extends Thread {
                 else
                 {
                     System.out.println("其他类型消息，暂时不处理");
+                    break;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
