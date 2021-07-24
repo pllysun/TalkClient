@@ -28,7 +28,8 @@ public class Test {
     @org.junit.Test
     public void test5()
     {
-
+        TalkView tk=new TalkView();
+        tk.mainMenu();
     }
 
 

@@ -10,7 +10,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 
 public class RegisterCheck {
-    private User u = new User();
+    private final User u = new User();
     private Socket socket;
 
     //根据userid和password到服务器验证用户是否合法

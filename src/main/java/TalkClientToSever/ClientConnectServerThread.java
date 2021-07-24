@@ -4,6 +4,8 @@ import TalkBasic.Message;
 import TalkBasic.MessageType;
 import TalkView.TalkView;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
@@ -50,6 +52,14 @@ public class ClientConnectServerThread extends Thread {
                 {
                     System.out.println("\n"+"用户："+message.getSender()+"对大家说："+message.getContent());
 
+                }
+                else if(message.getMesType().equals(MessageType.MESSAGE_FILE_MES)) {//如果是文件消息
+                    System.out.println("\n"+message.getSender()+"给"+message.getSender()+"发文件："+message.getSrc()+"到我的电脑目录"+message.getDest());
+                    //将取出message的文件字节数组，通过文件输出流写出到磁盘
+                    FileOutputStream fileOutputStream = new FileOutputStream(message.getDest());
+                    fileOutputStream.write(message.getFileBytes());
+                    fileOutputStream.close();
+                    System.out.println("\n"+"文件保存成功");
                 }
                 else
                 {

@@ -1,10 +1,7 @@
 package TalkView;
 
 import TalkBasic.User;
-import TalkClientToSever.MessageToService;
-import TalkClientToSever.RegisterCheck;
-import TalkClientToSever.RegisterUers;
-import TalkClientToSever.UserClient;
+import TalkClientToSever.*;
 import TalkView.Utility.Utility;
 
 public class TalkView {
@@ -12,6 +9,7 @@ public class TalkView {
         TalkView tk=new TalkView();
         tk.mainMenu();
     }
+    private  FileClientService fileClientService =new FileClientService();
     private boolean loop=true;//控制是否一致显示菜单
     private String key="";//获取用户输入
     User user=new User();
@@ -70,6 +68,13 @@ public class TalkView {
                                     this.messageToService.sendMessageToUser(content, user.getUserId(), getter);
                                     break;
                                 case "4":
+                                    System.out.print("你想法文件给哪个用户(需要该用户在在线)：");
+                                    String getterId = Utility.readString(50);
+                                    System.out.print("请输入发送文件的完整路径（例如：d:\\XX.jpg）");
+                                    String src = Utility.readString(100);
+                                    System.out.println("请输入想要把文件储存到对方的完整路径");
+                                    String dest = Utility.readString(100);
+                                    fileClientService.SendFileToOne(src,dest, user.getUserId(), getterId);
                                     break;
                                 case "9":
                                     userClient.logout();
