@@ -33,14 +33,21 @@ public class UserClient {
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             Message ms = (Message) ois.readObject();
             //检测是否登录成功
-            if (MessageType.MESSAGE_LOGIN_SUCCEED.equals(ms.getMesType())) {//如果成功，创建一个于服务器端保持通信的线程->创建一个类ClientConnectServerThread
+            if (MessageType.MESSAGE_LOGIN_SUCCEED.equals(ms.getMesType())) {
+                //如果成功，创建一个于服务器端保持通信的线程->创建一个类ClientConnectServerThread
                 ClientConnectServerThread clientConnectServerThread = new ClientConnectServerThread(socket);
                 //启动线程
                 clientConnectServerThread.start();
                 //这里为了以后客户端的扩展，我们将线程放入到集合中管理
                 ManageClientConnectServerThread.addClientConnectServerThread(userId, clientConnectServerThread);
                 checkUser = true;
-            } else {//如果登录失败，我们就不能启动与服务器通讯的线程，关闭socket
+            }
+            else if(MessageType.MESSAGE_REPEAT_LOGIN.equals(ms.getMesType()))
+            {
+                System.out.println("用户："+userId+"已经登录，请不要重复登录！");
+                socket.close();
+            }
+            else {//如果登录失败，我们就不能启动与服务器通讯的线程，关闭socket
                 socket.close();
             }
         } catch (Exception e) {
