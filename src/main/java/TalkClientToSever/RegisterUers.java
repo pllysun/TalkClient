@@ -11,8 +11,7 @@ import java.net.Socket;
 public class RegisterUers {
     private final User u = new User();
 
-    public boolean register(String reuser,String password) {
-        boolean checkUser = false;
+    public void register(String reuser,String password) {
         //创建user对象
         u.setReuser(reuser);
         u.setRepwd(password);
@@ -27,17 +26,14 @@ public class RegisterUers {
             oos.writeObject(u);
 
             //读取从服务器回复的Message对象
-//            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-//            ois.skip(4);
-//            Message ms = (Message) ois.readObject();
-//            //获取成功注册消息
-//            String content = ms.getContent();
-//            System.out.println(content);
-            System.out.println("注册成功！");
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            Message ms = (Message) ois.readObject();
+            //获取成功注册消息
+            String content = ms.getContent();
+            System.out.println(content);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return checkUser;
     }
 }
 

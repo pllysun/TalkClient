@@ -98,7 +98,7 @@ public class TalkView {
                             RegisterUers registerUers = new RegisterUers();
                             System.out.print("请输入密码:");
                             user.setRepwd(Utility.readString(16));
-                            boolean registerSuccess = registerUers.register(user.getReuser(), user.getRepwd());
+                            registerUers.register(user.getReuser(), user.getRepwd());
                             break;
                         }
                         else System.out.println("用户名已存在，请重新输入！！！");
