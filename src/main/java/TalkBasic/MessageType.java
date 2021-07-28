@@ -13,4 +13,7 @@ public interface MessageType {
     String MESSAGE_TO_ALL_MES="9";//群发消息
     String MESSAGE_FILE_MES="10";//发送文件
     String MESSAGE_REPEAT_LOGIN="11";//重复登录
+    String MESSAGE_OFFLINE_MES="12";//判断是在线消息还是离线消息
+    String MESSAGE_OFFLINE_BACK="13";//回复客户端发送消息失败转存服务器，等待目标用户上线
+    String MESSAGE_MES_END="14";//判断离校消息是否读取到最后一行
 }

@@ -2,12 +2,15 @@ package TalkClientToSever;
 
 import TalkBasic.Message;
 import TalkBasic.MessageType;
+import TalkBasic.OffLineMessage;
 import TalkView.TalkView;
 
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClientConnectServerThread extends Thread {
     //该线程需要持有Socket
@@ -60,6 +63,25 @@ public class ClientConnectServerThread extends Thread {
                     fileOutputStream.write(message.getFileBytes());
                     fileOutputStream.close();
                     System.out.println("\n"+"文件保存成功");
+                } else if (message.getMesType().equals(MessageType.MESSAGE_OFFLINE_BACK)) {
+                    //等待从服务端获取消息是否成功发送的消息
+
+                    List<OffLineMessage> list = message.getList();
+                    if(list!=null) {
+                        for (OffLineMessage olm : list) {
+                            String senduser = olm.getSenduser();
+                            String mes = olm.getMessage();
+                            Timestamp sendtime = olm.getSendtime();
+                            message.setSender(senduser);
+                            message.setContent(mes);
+                            message.setSendTime(sendtime);
+                            System.out.println("\n用户：" + message.getSender() + " 给您留言：" + message.getContent() + "\n留言时间：" + message.getSendTime());
+                        }
+                    }
+                }
+                else if(message.getMesType().equals(MessageType.MESSAGE_OFFLINE_MES))
+                {
+                    System.out.println("你给用户："+message.getGetter()+"发送 "+message.getContent()+" 因为对方离线无法接受，等对方上线时才会接受！");
                 }
                 else
                 {

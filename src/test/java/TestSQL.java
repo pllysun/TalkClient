@@ -3,6 +3,7 @@ import org.junit.Test;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Properties;
 
 public class TestSQL {
@@ -15,5 +16,13 @@ public class TestSQL {
         info.setProperty("password","1125887000f");
         Connection connection =driver.connect(url,info);
         System.out.println(connection);
+    }
+    @Test
+    public void test1()
+    {
+        long currentTimeMillis = System.currentTimeMillis();
+        Timestamp timestamp = new Timestamp(currentTimeMillis);
+        System.out.println(timestamp);
+
     }
 }

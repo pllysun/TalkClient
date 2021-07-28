@@ -1,15 +1,28 @@
 package TalkBasic;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Message implements Serializable {
+
     private static final long serialVersionUID=1L;
 
     private String sender;//发送者
     private String getter;//接受者
     private String content;//消息内容
-    private String sendTime;//发送时间
+    private Timestamp sendTime;//发送时间
     private String mesType;//消息类型【可以在接口定义消息类型】
+    private List<OffLineMessage> list; //离线消息数据群
+
+    public List<OffLineMessage> getList() {
+        return list;
+    }
+
+    public void setList(List<OffLineMessage> list) {
+        this.list = list;
+    }
 
     //文件传输
     private byte[] fileBytes;
@@ -74,11 +87,11 @@ public class Message implements Serializable {
         this.content = content;
     }
 
-    public String getSendTime() {
+    public Timestamp getSendTime() {
         return sendTime;
     }
 
-    public void setSendTime(String sendTime) {
+    public void setSendTime(Timestamp sendTime) {
         this.sendTime = sendTime;
     }
 
